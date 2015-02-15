@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+- '0.10'
+before_install:
+- npm install coffee-script
+before_script:
+- ./node_modules/.bin/cake archive
+script:
+- ./node_modules/.bin/cake test
+deploy:
+  provider: releases
+  api_key:
+    secure: by9x9mMPf7QcZEu1XsCCpTqM8CUgVs5+KZfmMNCE/bGuAn94pSdcKADiZFuQhRyJBiXT8V7yUOdeEtkgyhVNLfceoqStkWhFXWT1iILfiOzOrHsH2sjSfBFfvD2zAoAy7JBeqdiPbBsvuZfrdYS5QmZ654A6mHokeUnM0t42ePs=
+  file: build/SwiftAlamofireCodeGenerator.zip
+  skip_cleanup: true
+  on:
+    tags: true
+    all_branches: true
+    repo: luckymarmot/Paw-SwiftAlamofireCodeGenerator

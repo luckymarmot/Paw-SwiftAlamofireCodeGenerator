@@ -1,4 +1,4 @@
-{spawn} = require 'child_process'
+{exec} = require 'child_process'
 {ncp} = require 'ncp'
 mkdirp = require 'mkdirp'
 fs = require 'fs'
@@ -12,7 +12,7 @@ build_dir = "#{ build_root_dir }/#{ identifier }"
 
 # compile CoffeeScript
 build_coffee = (callback) ->
-    coffee = spawn 'coffee', ['-c', '-o', build_dir, file]
+    coffee = exec 'coffee', ['-c', '-o', build_dir, file]
     coffee.stderr.on 'data', (data) ->
         process.stderr.write data.toString()
     coffee.stdout.on 'data', (data) ->
@@ -62,7 +62,7 @@ archive = (callback) ->
         fs.unlinkSync zip_file
 
     # zip
-    zip = spawn 'zip', ["-r", zip_file, "#{ identifier }/"]
+    zip = exec 'zip', ["-r", zip_file, "#{ identifier }/"]
     zip.stderr.on 'data', (data) ->
         process.stderr.write data.toString()
     zip.stdout.on 'data', (data) ->
@@ -72,13 +72,29 @@ archive = (callback) ->
             callback?()
         else
             console.error "zip returned with error code: #{ code }"
+            
+# test: run the test suite
+test = (callback) ->
+    console.log "Building and Running Tests..."
+
+    child = exec "set -o pipefail && xcodebuild test -workspace './test/SwiftAlamofireCodeGenerator.xcworkspace' -scheme SwiftAlamofireCodeGeneratorTests | xcpretty -c"
+    child.stderr.on 'data', (data) ->
+        process.stderr.write data.toString()
+    child.stdout.on 'data', (data) ->
+        process.stdout.write data.toString()
+    child.on 'exit', (code) ->
+        if code is 0
+            console.log " > DONE (TESTS SUCCEEDED)"
+            callback?()
+        else
+            console.error " > FAILED: Tests failed with error code #{ code }"
+            process.exit(code=code)
 
 task 'build', ->
     build()
 
 task 'test', ->
-    build () ->
-        # no test to run
+    test()
 
 task 'install', ->
     build () ->

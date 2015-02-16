@@ -10,47 +10,7 @@
 	<string>46</string>
 	<key>objects</key>
 	<dict>
-		<key>06E9742C8A7456DFC3C7009C</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.framework</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>Pods_SwiftAlamofireCodeGenerator.framework</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>0968C764939D6FC1A9F0EC63</key>
-		<dict>
-			<key>fileRef</key>
-			<string>06E9742C8A7456DFC3C7009C</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Weak</string>
-				</array>
-			</dict>
-		</dict>
-		<key>46A63492A68D17CD554BCA53</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>06E9742C8A7456DFC3C7009C</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4FEE82D08DD65571D54B565B</key>
+		<key>0156598246257D176936DA9C</key>
 		<dict>
 			<key>buildActionMask</key>
 			<string>2147483647</string>
@@ -80,7 +40,20 @@ fi
 			<key>showEnvVarsInLog</key>
 			<string>0</string>
 		</dict>
-		<key>544583DE38C6246C876BE916</key>
+		<key>02FC0B66B123CB21EC67BABF</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Pods_SwiftAlamofireCodeGeneratorTests.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>0FCADF6BA233892859A0E1F7</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -89,69 +62,45 @@ fi
 			<key>lastKnownFileType</key>
 			<string>text.xcconfig</string>
 			<key>name</key>
-			<string>Pods-SwiftAlamofireCodeGenerator.release.xcconfig</string>
+			<string>Pods-SwiftAlamofireCodeGeneratorTests.debug.xcconfig</string>
 			<key>path</key>
-			<string>Pods/Target Support Files/Pods-SwiftAlamofireCodeGenerator/Pods-SwiftAlamofireCodeGenerator.release.xcconfig</string>
+			<string>Pods/Target Support Files/Pods-SwiftAlamofireCodeGeneratorTests/Pods-SwiftAlamofireCodeGeneratorTests.debug.xcconfig</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>60C8D84567E9C311A91D99BB</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Embed Pods Frameworks</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>"${SRCROOT}/Pods/Target Support Files/Pods-SwiftAlamofireCodeGenerator/Pods-SwiftAlamofireCodeGenerator-frameworks.sh"
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>6FBA70DF1A911BB100965F42</key>
+		<key>6F244C4D1A9245C30042E389</key>
 		<dict>
 			<key>children</key>
 			<array>
-				<string>6FBA70EA1A911BB100965F42</string>
-				<string>6FBA70E91A911BB100965F42</string>
-				<string>771E0FE51ED4BDB8B23AA6EC</string>
-				<string>46A63492A68D17CD554BCA53</string>
+				<string>6F244C811A924A1C0042E389</string>
+				<string>6F244C821A924A1C0042E389</string>
+				<string>FEC4B8D914F0EBF1A011AB19</string>
+				<string>E5239B3E4727E6480CC63D14</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>6FBA70E01A911BB100965F42</key>
+		<key>6F244C4E1A9245C30042E389</key>
 		<dict>
 			<key>attributes</key>
 			<dict>
 				<key>LastUpgradeCheck</key>
-				<string>0630</string>
+				<string>0610</string>
 				<key>ORGANIZATIONNAME</key>
 				<string>Quentin Rousseau</string>
 				<key>TargetAttributes</key>
 				<dict>
-					<key>6FBA70E71A911BB100965F42</key>
+					<key>6F244C801A924A1C0042E389</key>
 					<dict>
 						<key>CreatedOnToolsVersion</key>
-						<string>6.3</string>
+						<string>6.1.1</string>
 					</dict>
 				</dict>
 			</dict>
 			<key>buildConfigurationList</key>
-			<string>6FBA70E31A911BB100965F42</string>
+			<string>6F244C511A9245C30042E389</string>
 			<key>compatibilityVersion</key>
 			<string>Xcode 3.2</string>
 			<key>developmentRegion</key>
@@ -165,9 +114,9 @@ fi
 				<string>en</string>
 			</array>
 			<key>mainGroup</key>
-			<string>6FBA70DF1A911BB100965F42</string>
+			<string>6F244C4D1A9245C30042E389</string>
 			<key>productRefGroup</key>
-			<string>6FBA70E91A911BB100965F42</string>
+			<string>6F244C4D1A9245C30042E389</string>
 			<key>projectDirPath</key>
 			<string></string>
 			<key>projectReferences</key>
@@ -176,15 +125,15 @@ fi
 			<string></string>
 			<key>targets</key>
 			<array>
-				<string>6FBA70E71A911BB100965F42</string>
+				<string>6F244C801A924A1C0042E389</string>
 			</array>
 		</dict>
-		<key>6FBA70E31A911BB100965F42</key>
+		<key>6F244C511A9245C30042E389</key>
 		<dict>
 			<key>buildConfigurations</key>
 			<array>
-				<string>6FBA70ED1A911BB100965F42</string>
-				<string>6FBA70EE1A911BB100965F42</string>
+				<string>6F244C5B1A9245C30042E389</string>
+				<string>6F244C5C1A9245C30042E389</string>
 			</array>
 			<key>defaultConfigurationIsVisible</key>
 			<string>0</string>
@@ -193,133 +142,7 @@ fi
 			<key>isa</key>
 			<string>XCConfigurationList</string>
 		</dict>
-		<key>6FBA70E41A911BB100965F42</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>6FBA70EC1A911BB100965F42</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>6FBA70E51A911BB100965F42</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>0968C764939D6FC1A9F0EC63</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>6FBA70E61A911BB100965F42</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>dstPath</key>
-			<string>/usr/share/man/man1/</string>
-			<key>dstSubfolderSpec</key>
-			<string>0</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXCopyFilesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>1</string>
-		</dict>
-		<key>6FBA70E71A911BB100965F42</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>6FBA70EF1A911BB100965F42</string>
-			<key>buildPhases</key>
-			<array>
-				<string>4FEE82D08DD65571D54B565B</string>
-				<string>6FBA70E41A911BB100965F42</string>
-				<string>6FBA70E51A911BB100965F42</string>
-				<string>6FBA70E61A911BB100965F42</string>
-				<string>60C8D84567E9C311A91D99BB</string>
-				<string>AC97846DCB6EE1E53BF866ED</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>SwiftAlamofireCodeGenerator</string>
-			<key>productName</key>
-			<string>SwiftAlamofireCodeGenerator</string>
-			<key>productReference</key>
-			<string>6FBA70E81A911BB100965F42</string>
-			<key>productType</key>
-			<string>com.apple.product-type.tool</string>
-		</dict>
-		<key>6FBA70E81A911BB100965F42</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>compiled.mach-o.executable</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>SwiftAlamofireCodeGenerator</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>6FBA70E91A911BB100965F42</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>6FBA70E81A911BB100965F42</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6FBA70EA1A911BB100965F42</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>6FBA70EB1A911BB100965F42</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>SwiftAlamofireCodeGenerator</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6FBA70EB1A911BB100965F42</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>main.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6FBA70EC1A911BB100965F42</key>
-		<dict>
-			<key>fileRef</key>
-			<string>6FBA70EB1A911BB100965F42</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>6FBA70ED1A911BB100965F42</key>
+		<key>6F244C5B1A9245C30042E389</key>
 		<dict>
 			<key>buildSettings</key>
 			<dict>
@@ -353,8 +176,6 @@ fi
 				<string>YES</string>
 				<key>COPY_PHASE_STRIP</key>
 				<string>NO</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf</string>
 				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
 				<string>YES</string>
 				<key>GCC_C_LANGUAGE_STANDARD</key>
@@ -398,7 +219,7 @@ fi
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>6FBA70EE1A911BB100965F42</key>
+		<key>6F244C5C1A9245C30042E389</key>
 		<dict>
 			<key>buildSettings</key>
 			<dict>
@@ -431,7 +252,7 @@ fi
 				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
 				<string>YES</string>
 				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
+				<string>YES</string>
 				<key>DEBUG_INFORMATION_FORMAT</key>
 				<string>dwarf-with-dsym</string>
 				<key>ENABLE_NS_ASSERTIONS</key>
@@ -464,24 +285,174 @@ fi
 			<key>name</key>
 			<string>Release</string>
 		</dict>
-		<key>6FBA70EF1A911BB100965F42</key>
+		<key>6F244C7D1A924A1C0042E389</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>6F244C861A924A1C0042E389</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>6F244C7E1A924A1C0042E389</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>E1BAFF38670F1859609C8885</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>6F244C7F1A924A1C0042E389</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXResourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>6F244C801A924A1C0042E389</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>6F244C871A924A1C0042E389</string>
+			<key>buildPhases</key>
+			<array>
+				<string>0156598246257D176936DA9C</string>
+				<string>6F244C7D1A924A1C0042E389</string>
+				<string>6F244C7E1A924A1C0042E389</string>
+				<string>6F244C7F1A924A1C0042E389</string>
+				<string>9ED4306AE3AC390BF0C8E498</string>
+				<string>D567F315067817A37410A0F3</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>SwiftAlamofireCodeGeneratorTests</string>
+			<key>productName</key>
+			<string>SwiftAlamofireCodeGeneratorTests</string>
+			<key>productReference</key>
+			<string>6F244C811A924A1C0042E389</string>
+			<key>productType</key>
+			<string>com.apple.product-type.bundle.unit-test</string>
+		</dict>
+		<key>6F244C811A924A1C0042E389</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.cfbundle</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>SwiftAlamofireCodeGeneratorTests.xctest</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>6F244C821A924A1C0042E389</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>6F244C851A924A1C0042E389</string>
+				<string>6F244C831A924A1C0042E389</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>SwiftAlamofireCodeGeneratorTests</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6F244C831A924A1C0042E389</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>6F244C841A924A1C0042E389</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Supporting Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6F244C841A924A1C0042E389</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6F244C851A924A1C0042E389</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>SwiftAlamofireCodeGeneratorTests.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6F244C861A924A1C0042E389</key>
+		<dict>
+			<key>fileRef</key>
+			<string>6F244C851A924A1C0042E389</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>6F244C871A924A1C0042E389</key>
 		<dict>
 			<key>buildConfigurations</key>
 			<array>
-				<string>6FBA70F01A911BB100965F42</string>
-				<string>6FBA70F11A911BB100965F42</string>
+				<string>6F244C881A924A1C0042E389</string>
+				<string>6F244C891A924A1C0042E389</string>
 			</array>
 			<key>defaultConfigurationIsVisible</key>
 			<string>0</string>
 			<key>isa</key>
 			<string>XCConfigurationList</string>
 		</dict>
-		<key>6FBA70F01A911BB100965F42</key>
+		<key>6F244C881A924A1C0042E389</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>C96A91E0613430F61C58AD97</string>
+			<string>0FCADF6BA233892859A0E1F7</string>
 			<key>buildSettings</key>
 			<dict>
+				<key>COMBINE_HIDPI_IMAGES</key>
+				<string>YES</string>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>INFOPLIST_FILE</key>
+				<string>SwiftAlamofireCodeGeneratorTests/Info.plist</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<string>$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks</string>
 				<key>PRODUCT_NAME</key>
 				<string>$(TARGET_NAME)</string>
 			</dict>
@@ -490,12 +461,23 @@ fi
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>6FBA70F11A911BB100965F42</key>
+		<key>6F244C891A924A1C0042E389</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>544583DE38C6246C876BE916</string>
+			<string>745C8CDC9351F802EFF53C8C</string>
 			<key>buildSettings</key>
 			<dict>
+				<key>COMBINE_HIDPI_IMAGES</key>
+				<string>YES</string>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>INFOPLIST_FILE</key>
+				<string>SwiftAlamofireCodeGeneratorTests/Info.plist</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<string>$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks</string>
 				<key>PRODUCT_NAME</key>
 				<string>$(TARGET_NAME)</string>
 			</dict>
@@ -504,21 +486,46 @@ fi
 			<key>name</key>
 			<string>Release</string>
 		</dict>
-		<key>771E0FE51ED4BDB8B23AA6EC</key>
+		<key>745C8CDC9351F802EFF53C8C</key>
 		<dict>
-			<key>children</key>
-			<array>
-				<string>C96A91E0613430F61C58AD97</string>
-				<string>544583DE38C6246C876BE916</string>
-			</array>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXGroup</string>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
 			<key>name</key>
-			<string>Pods</string>
+			<string>Pods-SwiftAlamofireCodeGeneratorTests.release.xcconfig</string>
+			<key>path</key>
+			<string>Pods/Target Support Files/Pods-SwiftAlamofireCodeGeneratorTests/Pods-SwiftAlamofireCodeGeneratorTests.release.xcconfig</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>AC97846DCB6EE1E53BF866ED</key>
+		<key>9ED4306AE3AC390BF0C8E498</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Embed Pods Frameworks</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>"${SRCROOT}/Pods/Target Support Files/Pods-SwiftAlamofireCodeGeneratorTests/Pods-SwiftAlamofireCodeGeneratorTests-frameworks.sh"
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
+		<key>D567F315067817A37410A0F3</key>
 		<dict>
 			<key>buildActionMask</key>
 			<string>2147483647</string>
@@ -537,28 +544,54 @@ fi
 			<key>shellPath</key>
 			<string>/bin/sh</string>
 			<key>shellScript</key>
-			<string>"${SRCROOT}/Pods/Target Support Files/Pods-SwiftAlamofireCodeGenerator/Pods-SwiftAlamofireCodeGenerator-resources.sh"
+			<string>"${SRCROOT}/Pods/Target Support Files/Pods-SwiftAlamofireCodeGeneratorTests/Pods-SwiftAlamofireCodeGeneratorTests-resources.sh"
 </string>
 			<key>showEnvVarsInLog</key>
 			<string>0</string>
 		</dict>
-		<key>C96A91E0613430F61C58AD97</key>
+		<key>E1BAFF38670F1859609C8885</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>fileRef</key>
+			<string>02FC0B66B123CB21EC67BABF</string>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Weak</string>
+				</array>
+			</dict>
+		</dict>
+		<key>E5239B3E4727E6480CC63D14</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>02FC0B66B123CB21EC67BABF</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
 			<key>name</key>
-			<string>Pods-SwiftAlamofireCodeGenerator.debug.xcconfig</string>
-			<key>path</key>
-			<string>Pods/Target Support Files/Pods-SwiftAlamofireCodeGenerator/Pods-SwiftAlamofireCodeGenerator.debug.xcconfig</string>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>FEC4B8D914F0EBF1A011AB19</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>0FCADF6BA233892859A0E1F7</string>
+				<string>745C8CDC9351F802EFF53C8C</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
 	</dict>
 	<key>rootObject</key>
-	<string>6FBA70E01A911BB100965F42</string>
+	<string>6F244C4E1A9245C30042E389</string>
 </dict>
 </plist>

@@ -1,0 +1,8 @@
+source 'https://github.com/CocoaPods/Specs.git'
+platform :osx, '10.10'
+
+target 'SwiftAlamofireCodeGeneratorTests' do
+  pod 'Alamofire', '~> 1.1'
+  #Swift 1.2 / xcode 6.3
+  #pod 'Alamofire', :git => 'https://github.com/Alamofire/Alamofire.git', :branch => 'xcode-6.3'
+end

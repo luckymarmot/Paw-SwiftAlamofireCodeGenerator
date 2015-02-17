@@ -90,6 +90,14 @@ test = (callback) ->
             console.error " > FAILED: Tests failed with error code #{ code }"
             process.exit(code=code)
 
+# clean: remove any generated file
+clean = () ->
+    exec "rm -Rf build/"
+    exec "rm -Rf node_modules/"
+    exec "rm -Rf test/Build/"
+    exec "rm -Rf test/DerivedData/"
+    exec "rm -Rf test/Podfile.lock/"
+
 task 'build', ->
     build()
 
@@ -113,3 +121,6 @@ task 'watch', ->
                 # when a file is changed, build and install
                 build () ->
                     install()
+
+task 'clean', ->
+    clean()

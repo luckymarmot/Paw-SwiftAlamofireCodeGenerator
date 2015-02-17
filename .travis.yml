@@ -1,9 +1,11 @@
-language: node_js
+language: objective-c
 node_js:
 - '0.10'
 before_install:
-- gem install cocoapods --pre
 - npm install coffee-script
+install:
+- pod install --project-directory=./test/
+- npm install
 before_script:
 - ./node_modules/.bin/cake archive
 script:
@@ -18,3 +20,5 @@ deploy:
     tags: true
     all_branches: true
     repo: luckymarmot/Paw-SwiftAlamofireCodeGenerator
+os:
+  - osx

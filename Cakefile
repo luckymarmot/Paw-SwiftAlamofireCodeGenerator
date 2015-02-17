@@ -12,24 +12,32 @@ build_dir = "#{ build_root_dir }/#{ identifier }"
 
 # compile CoffeeScript
 build_coffee = (callback) ->
-    coffee = exec 'coffee', ['-c', '-o', build_dir, file]
+    console.log "Building Coffee Scripts..."
+
+    coffee = exec "./node_modules/coffee-script/bin/coffee -c -o #{ build_dir } #{ file }"
     coffee.stderr.on 'data', (data) ->
         process.stderr.write data.toString()
     coffee.stdout.on 'data', (data) ->
         process.stdout.write data.toString()
     coffee.on 'exit', (code) ->
         if code is 0
+            console.log " > DONE"
             callback?()
         else
-            console.error "Build failed with error: #{ code }"
+            console.error " > FAILED: Build failed with error: #{ code }"
+            process.exit(code=code)
 
 # copy files to build directory
 build_copy = () ->
+    console.log "Copying files to archive..."
+
     fs.writeFileSync "#{ build_dir }/README.md", fs.readFileSync("./README.md")
     fs.writeFileSync "#{ build_dir }/LICENSE", fs.readFileSync("./LICENSE")
     fs.writeFileSync "#{ build_dir }/swift.mustache", fs.readFileSync("./swift.mustache")
     fs.writeFileSync "#{ build_dir }/mustache.js", fs.readFileSync("./node_modules/mustache/mustache.js")
     fs.writeFileSync "#{ build_dir }/URI.js", fs.readFileSync("./node_modules/URIjs/src/URI.min.js")
+
+    console.log " > DONE"
 
 # build: build CoffeeScript and copy files to build directory
 build = (callback) ->
@@ -37,6 +45,7 @@ build = (callback) ->
     mkdirp build_dir, (err) ->
         if err
             console.error err
+            process.exit(code=1)
         else
             build_coffee () ->
                 build_copy()
@@ -44,14 +53,20 @@ build = (callback) ->
 
 # install: copy files to Extensions directory
 install = (callback) ->
+    console.log "Copying files to Extensions directory..."
+
     ncp build_dir, "#{ extensions_dir }/#{ identifier }", (err) ->
         if err
-            console.error err
+            console.error " > FAILED: #{ err }"
+            process.exit(code=1)
         else
+            console.log " > DONE"
             callback?()
 
 # archive: create a zip archive from the build
 archive = (callback) ->
+    console.log "Creating ZIP Archive..."
+
     zip_file = "#{ identifier.split('.').pop() }.zip"
 
     # go to build dir
@@ -62,17 +77,19 @@ archive = (callback) ->
         fs.unlinkSync zip_file
 
     # zip
-    zip = exec 'zip', ["-r", zip_file, "#{ identifier }/"]
+    zip = exec "zip -r #{ zip_file } #{ identifier }/"
     zip.stderr.on 'data', (data) ->
         process.stderr.write data.toString()
     zip.stdout.on 'data', (data) ->
         process.stdout.write data.toString()
     zip.on 'exit', (code) ->
         if code is 0
+            console.log " > DONE"
             callback?()
         else
-            console.error "zip returned with error code: #{ code }"
-            
+            console.error " > FAILED: zip returned with error code: #{ code }"
+            process.exit(code=code)
+
 # test: run the test suite
 test = (callback) ->
     console.log "Building and Running Tests..."

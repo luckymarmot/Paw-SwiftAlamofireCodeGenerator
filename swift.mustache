@@ -1,81 +1,172 @@
-- (void)sendRequest:(id)sender
-{
-	// {{{request.name}}} ({{{request.method}}} {{{url.base}}})
-	
-	// Create manager
-	AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-	
-	{{! ----- }}
-	{{#url.has_params}}
-	// Create request
-	NSDictionary* URLParams = @{
-	{{#url.params}}
-			@"{{{name}}}": @"{{{value}}}",
-	{{/url.params}}
-	};
-	NSMutableURLRequest* request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"{{{request.method}}}" URLString:@"{{{url.base}}}" parameters:URLParams error:nil];
-	{{/url.has_params}}
-	{{! ----- }}
-	{{#body.has_url_encoded_body}}
-	// Form URL-Encoded Body
-	NSDictionary* bodyParameters = @{
-	{{#body.url_encoded_body}}
-		@"{{{name}}}": @"{{{value}}}",
-	{{/body.url_encoded_body}}
-	};
-	NSMutableURLRequest* request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"{{{request.method}}}" URLString:@"{{{url.base}}}" parameters:bodyParameters error:nil];
-	{{/body.has_url_encoded_body}}
-	{{! ----- }}
-	{{#body.has_multipart_body}}
-	// Form Multipart Body
-	NSDictionary* bodyParameters = @{
-	{{#body.multipart_body}}
-		@"{{{name}}}": @"{{{value}}}",
-	{{/body.multipart_body}}
-	};
-	NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"{{{request.method}}}" URLString:@"{{{url.base}}}" parameters:bodyParameters constructingBodyWithBlock:nil error:nil];
-	{{/body.has_multipart_body}}
-	{{! ----- }}
-	{{#body.has_json_body}}
-	// JSON Body
-	{{{body.json_body_object}}}
-	NSMutableURLRequest* request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"{{{request.method}}}" URLString:@"{{{url.base}}}" parameters:bodyObject error:nil];
-	{{/body.has_json_body}}
-	{{! ----- }}
-	{{#body.has_raw_body}}
-	// Body
-	NSURL* URL = [NSURL URLWithString:@"{{{url.base}}}"];
-	NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
-	[request setHTTPMethod:@"{{{request.method}}}"];
-	[request setHTTPBody:[@"{{{body.raw_body}}}" dataUsingEncoding:NSUTF8StringEncoding]];
-	[request setValue: @"" forHTTPHeaderField:@"Content-Type"];
-	{{/body.has_raw_body}}
-	{{! ----- }}
-	{{#body.has_long_body}}
-	// Body
-	NSURL* URL = [NSURL URLWithString:@"{{{url.base}}}"];
-	NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:URL];
-	[request setHTTPMethod:@"{{{request.method}}}"];
-	[request setHTTPBody:@"Set your own body data" dataUsingEncoding:NSUTF8StringEncoding]];
-	[request setValue: @"" forHTTPHeaderField:@"Content-Type"];
-	{{/body.has_long_body}}
-	{{! ----- }}
-	{{#headers.has_headers}}
-	
-	// Add Headers
-	{{#headers.header_list}}
-	[request setValue:@"{{{header_value}}}" forHTTPHeaderField:@"{{{header_name}}}"];
-	{{/headers.header_list}}
-	{{/headers.has_headers}}
-	
-	// Fetch Request
-	AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request
-	  success:^(AFHTTPRequestOperation *operation, id responseObject) {
-	    NSLog(@"Response HTTP Status Code: %ld", [operation.response statusCode]);
-	    NSLog(@"Response HTTP Response Body: %@", responseObject);
-	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-	    NSLog(@"HTTP Request failed: %@", error);
-	}];
+class MyRequestController {
+		
+	func sendRequest() {
+		
+		// {{{request.name}}} ({{{request.method}}} {{{url.base}}})
 
-	[manager.operationQueue addOperation:operation];
+		{{#headers.has_headers}}
+		// Create manager
+		var manager = Manager.sharedInstance
+
+		// Add Headers
+		manager.session.configuration.HTTPAdditionalHeaders = [
+		{{#headers.header_list}}
+			"{{{header_name}}}":"{{{header_value}}}",
+		{{/headers.header_list}}
+		]
+		{{/headers.has_headers}}
+		{{! ----- }}
+		{{^has_params_and_body}}
+		{{#url.has_params}}
+
+		let URLParameters = [
+		{{#url.params}}
+			"{{{name}}}":"{{{value}}}",
+		{{/url.params}}
+		]
+		{{/url.has_params}}
+		{{/has_params_and_body}}
+		{{! ----- }}
+		{{#body.has_url_encoded_body}}
+		// Form URL-Encoded Body
+		let bodyParameters = [
+		{{#body.url_encoded_body}}
+			"{{{name}}}":"{{{value}}}",
+		{{/body.url_encoded_body}}
+		]
+		
+		let encoding = Alamofire.ParameterEncoding.URL
+		{{/body.has_url_encoded_body}}
+		{{! ----- }}
+		{{#body.has_multipart_body}}
+		// Form Multipart Body
+		let bodyParameters = [
+		{{#body.multipart_body}}
+			"{{{name}}}":"{{{value}}}",
+		{{/body.multipart_body}}
+		]
+		{{/body.has_multipart_body}}
+		{{! ----- }}
+		{{#body.has_json_body}}
+
+		// JSON Body
+		{{{body.json_body_object}}}
+		
+		let encoding = Alamofire.ParameterEncoding.JSON
+		{{/body.has_json_body}}
+		{{! ----- }}
+		{{^has_raw_body_or_multipart_body}}
+		
+		// Fetch Request
+		{{#body}}
+		Alamofire.request(.{{{request.method}}}, "{{{url.fullpath}}}", parameters: bodyParameters, encoding: encoding)
+		{{/body}}
+		{{^body}}
+		Alamofire.request(.{{{request.method}}}, "{{{url.base}}}", parameters: URLParameters)
+		{{/body}}
+		.validate(statusCode: 200..<300)
+		.responseJSON{(request, response, JSON, error) in
+			if (error == nil)
+			{
+				println("HTTP Response Body: \(JSON)")
+			}
+			else
+			{
+				println("HTTP HTTP Request failed: \(error)")
+			}
+		}
+		{{/has_raw_body_or_multipart_body}}
+		{{! ----- }}
+		{{#has_raw_body_or_multipart_body}}
+		{{! ----- }}
+		{{#body.has_raw_body}}
+		{{#body.has_short_body}}
+		Alamofire.request(urlRequestWithRawBody("{{{url.fullpath}}}", rawBody: "{{{body.short_body}}}"))
+		{{/body.has_short_body}}
+		{{#body.has_long_body}}
+		Alamofire.request(urlRequestWithRawBody("{{{url.fullpath}}}", rawBody: "Set your own body data"))
+		{{/body.has_long_body}}
+		.validate(statusCode: 200..<300)
+		.responseJSON{(request, response, JSON, error) in
+			if (error == nil)
+			{
+				println("HTTP Response Body: \(JSON)")
+			}
+			else
+			{
+				println("HTTP HTTP Request failed: \(error)")
+			}
+		}
+		{{/body.has_raw_body}}
+		{{! ----- }}
+		{{#body.has_multipart_body}}
+
+		Alamofire.request(urlRequestWithMultipartBody("{{{url.fullpath}}}", parameters: bodyParameters))
+		.validate(statusCode: 200..<300)
+		.responseJSON{(request, response, JSON, error) in
+			if (error == nil)
+			{
+				println("HTTP Response Body: \(JSON)")
+			}
+			else
+			{
+				println("HTTP HTTP Request failed: \(error)")
+			}
+		}
+		{{/body.has_multipart_body}}
+		{{! ----- }}
+		{{/has_raw_body_or_multipart_body}}
+		
+	}
+	{{#has_raw_body_or_multipart_body}}
+	
+	{{#body.has_raw_body}}
+	func urlRequestWithRawBody(urlString:String, rawBody:String) -> (URLRequestConvertible) {
+
+		// Create url request to send
+		var mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
+		mutableURLRequest.HTTPMethod = Alamofire.Method.POST.rawValue
+		
+		// Set content-type
+		mutableURLRequest.setValue("", forHTTPHeaderField: "Content-Type")
+		
+		// Set the HTTPBody we'd like to submit
+		let requestBodyData = NSMutableData()
+		requestBodyData.appendData(rawBody.dataUsingEncoding(NSUTF8StringEncoding)!)
+		
+		mutableURLRequest.HTTPBody = requestBodyData
+
+		// return URLRequestConvertible
+		return (Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: nil).0)
+	}
+	{{/body.has_raw_body}}
+	
+	{{#body.has_multipart_body}}
+	func urlRequestWithMultipartBody(urlString:String, parameters:NSDictionary) -> (URLRequestConvertible) {
+
+		// Create url request to send
+		var mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
+		mutableURLRequest.HTTPMethod = Alamofire.Method.POST.rawValue
+		// Set Content-Type in HTTP header.
+		let boundary = "PAW-boundary-\(arc4random())-\(arc4random())"
+		let contentType = "multipart/form-data; boundary=" + boundary
+
+		// Set data
+		var dataString = String()
+		dataString += "--\(boundary)"
+		for (key, value) in parameters { dataString += "\r\nContent-Disposition: form-data; name=\"\(key)\"\r\n\r\n\(value)\r\n--\(boundary)" }
+		dataString += "--"
+
+		// Set content-type
+		mutableURLRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
+		
+		// Set the HTTPBody we'd like to submit
+		let requestBodyData = (dataString as NSString).dataUsingEncoding(NSUTF8StringEncoding)
+		mutableURLRequest.HTTPBody = requestBodyData
+
+		// return URLRequestConvertible
+		return (Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: nil).0)
+	}
+	{{/body.has_multipart_body}}
+	{{/has_raw_body_or_multipart_body}}
 }

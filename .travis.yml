@@ -2,6 +2,7 @@ language: objective-c
 node_js:
 - '0.10'
 before_install:
+- gem install cocoapods --pre
 - npm install coffee-script
 install:
 - pod install --project-directory=./test/

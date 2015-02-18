@@ -15,7 +15,7 @@ script:
 deploy:
   provider: releases
   api_key:
-    secure: by9x9mMPf7QcZEu1XsCCpTqM8CUgVs5+KZfmMNCE/bGuAn94pSdcKADiZFuQhRyJBiXT8V7yUOdeEtkgyhVNLfceoqStkWhFXWT1iILfiOzOrHsH2sjSfBFfvD2zAoAy7JBeqdiPbBsvuZfrdYS5QmZ654A6mHokeUnM0t42ePs=
+    secure: N8Ax7oBlgqeJLi5h9nwE42SekB1TBQ8BJc/Cy+JdxilX9nkwcd7K3TAPRCWUtsREFO/nH4lXi5A8Lh5T2AAw+v0eMtYmZZuXZtmLLOaNcQdQOTzzYFRY9lbWBD76nUhjJ56/rU6glPuxHPkpY+S9yc0JmL2i+lSNhUX+uJkt0c8=
   file: build/SwiftAlamofireCodeGenerator.zip
   skip_cleanup: true
   on:

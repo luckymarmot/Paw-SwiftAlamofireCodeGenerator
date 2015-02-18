@@ -94,7 +94,7 @@ archive = (callback) ->
 test = (callback) ->
     console.log "Building and Running Tests..."
 
-    child = exec "xcodebuild test -workspace './test/SwiftAlamofireCodeGenerator.xcworkspace' -scheme SwiftAlamofireCodeGeneratorTests"
+    child = exec "set -o pipefail && xcodebuild test -workspace './test/SwiftAlamofireCodeGenerator.xcworkspace' -scheme SwiftAlamofireCodeGeneratorTests | xcpretty -c"
     child.stderr.on 'data', (data) ->
         process.stderr.write data.toString()
     child.stdout.on 'data', (data) ->

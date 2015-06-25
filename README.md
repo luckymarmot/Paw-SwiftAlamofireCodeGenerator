@@ -32,10 +32,10 @@ cake watch
 
 #### Podfile
 
-Version >= **0.36.0.beta.2** required
+Version >= **0.36.0** required
 
 ```shell
-gem install cocoapods --pre
+gem install cocoapods
 ```
 
 An Xcode Project is present in the `/test` folder.

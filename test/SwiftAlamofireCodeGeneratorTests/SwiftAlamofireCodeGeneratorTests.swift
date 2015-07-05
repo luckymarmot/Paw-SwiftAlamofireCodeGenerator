@@ -51,7 +51,7 @@ class SwiftAlamofireCodeGeneratorTests: XCTestCase
 			XCTAssertNil(error, "error should be nil")
 		}
 
-		waitForExpectationsWithTimeout(5, nil)
+		waitForExpectationsWithTimeout(5, handler: nil)
 	}
 	
 	func testPOSTJSONRequest()
@@ -103,7 +103,7 @@ class SwiftAlamofireCodeGeneratorTests: XCTestCase
 				XCTAssertNil(error, "error should be nil")
 		}
 		
-		waitForExpectationsWithTimeout(5, nil)
+		waitForExpectationsWithTimeout(5, handler: nil)
 	}
 	
 	func testPOSTTextRequest()
@@ -129,7 +129,7 @@ class SwiftAlamofireCodeGeneratorTests: XCTestCase
 				XCTAssertNil(error, "error should be nil")
 		}
 		
-		waitForExpectationsWithTimeout(5, nil)
+		waitForExpectationsWithTimeout(5, handler: nil)
 	}
 	
 	func testPOSTFormEncodedURLRequest()
@@ -170,7 +170,7 @@ class SwiftAlamofireCodeGeneratorTests: XCTestCase
 				XCTAssertNil(error, "error should be nil")
 		}
 		
-		waitForExpectationsWithTimeout(5, nil)
+		waitForExpectationsWithTimeout(5, handler: nil)
 	}
 
 	func testPOSTMultipartRequest()
@@ -204,7 +204,7 @@ class SwiftAlamofireCodeGeneratorTests: XCTestCase
 				XCTAssertNil(error, "error should be nil")
 		}
 		
-		waitForExpectationsWithTimeout(5, nil)
+		waitForExpectationsWithTimeout(5, handler: nil)
 	}
 	
 	func urlRequestWithRawBody(urlString:String, rawBody:String) -> (URLRequestConvertible) {

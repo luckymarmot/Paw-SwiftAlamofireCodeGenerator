@@ -1,5 +1,12 @@
-require "mustache.js"
-require "URI.js"
+# in API v0.2.0 and below (Paw 2.2.2 and below), require had no return value
+((root) ->
+  if root.bundle?.minApiVersion('0.2.0')
+    root.URI = require("./URI")
+    root.Mustache = require("./mustache")
+  else
+    require("URI.min.js")
+    require("mustache.js")
+)(this)
 
 addslashes = (str) ->
     ("#{str}").replace(/[\\"]/g, '\\$&')

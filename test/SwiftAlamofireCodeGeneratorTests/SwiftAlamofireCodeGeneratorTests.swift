@@ -12,135 +12,135 @@ import Alamofire
 
 class SwiftAlamofireCodeGeneratorTests: XCTestCase
 {
-	
     func testGETRequest()
 	{
-		let expectation = expectationWithDescription("request sent")
+        // My API (GET http://echo.luckymarmot.com/)
+        
+        // Create manager
+        var manager = Manager.sharedInstance
+        
+        // Add timeout
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        configuration.timeoutIntervalForRequest = 2
+        manager = Alamofire.Manager(configuration: configuration)
+        
+        // Add Headers
+        manager.session.configuration.HTTPAdditionalHeaders = [
+            "oaief":"oinef",
+            "Cookie":"sessionid=j9z27n2m0wptpuk6xcbjiov86f7pyrjm",
+        ]
+        
+        // Add parameters
+        let URLParameters = [
+            "afjkb":"kjabef",
+        ]
+        
+        // Fetch Request
+        Alamofire.request(.GET, "http://echo.luckymarmot.com/", parameters: URLParameters)
+            .validate(statusCode: 200..<300)
+            .responseJSON{(response) in
+                if (response.result.error == nil)
+                {
+                    print("HTTP Response Body: \(response.data)")
+                }
+                else
+                {
+                    print("HTTP Request failed: \(response.result.error)")
+                }
+        }
 
-		// GET (Headers & URL Params) (GET http://httpbin.org/get)
 
-		// Create manager
-		var manager = Manager.sharedInstance
-
-		// Add Headers
-		manager.session.configuration.HTTPAdditionalHeaders = [
-			"X-Special-Header":"JytsL82VnKSJr6nFXgbTv7LqYjHi2ndo",
-			"Content-Type":"application/json",
-		]
-
-		let URLParameters = [
-			"param1":"value1",
-			"param2":"value2",
-		]
-		
-		// Fetch Request
-		Alamofire.request(.GET, "http://httpbin.org/get", parameters: URLParameters)
-		.validate(statusCode: 200..<300)
-		.responseJSON{(request, response, JSON, error) in
-			if (error == nil)
-			{
-				println("HTTP Response Body: \(JSON)")
-			}
-			else
-			{
-				println("HTTP HTTP Request failed: \(error)")
-			}
-			expectation.fulfill()
-			XCTAssertNotNil(JSON, "data should not be nil")
-			XCTAssertNotNil(response, "response should not be nil")
-			XCTAssertNil(error, "error should be nil")
-		}
-
-		waitForExpectationsWithTimeout(5, handler: nil)
 	}
 	
 	func testPOSTJSONRequest()
 	{
-		let expectation = expectationWithDescription("request sent")
-		
-		// POST JSON Body (POST http://httpbin.org/post)
-		
-		// Create manager
-		var manager = Manager.sharedInstance
-		
-		// Add Headers
-		manager.session.configuration.HTTPAdditionalHeaders = [
-			"X-Special-Header":"sdfsadf",
-		]
-		
-		// JSON Body
-		let bodyParameters = [
-			"asdfasf": 42.1123,
-			"asdf": "asdf",
-			"sadffasdasdfsadf": true,
-			"asdfasd": NSNull(),
-			"asdfasdfasdf": "ssadfasdfsdf",
-			"asdfasdasd": [
-				"asdf",
-				"asdfasdf"
-			],
-			"sadfasdf": "asdfsasadfasdfdf",
-			"sdfasdf": false
-		]
-		
-		let encoding = Alamofire.ParameterEncoding.JSON
-		
-		// Fetch Request
-		Alamofire.request(.POST, "http://httpbin.org/post?toto=toto", parameters: bodyParameters, encoding: encoding)
-			.validate(statusCode: 200..<300)
-			.responseJSON{(request, response, JSON, error) in
-				if (error == nil)
-				{
-					println("HTTP Response Body: \(JSON)")
-				}
-				else
-				{
-					println("HTTP HTTP Request failed: \(error)")
-				}
-				expectation.fulfill()
-				XCTAssertNotNil(JSON, "data should not be nil")
-				XCTAssertNotNil(response, "response should not be nil")
-				XCTAssertNil(error, "error should be nil")
-		}
-		
-		waitForExpectationsWithTimeout(5, handler: nil)
+        // My API (POST http://echo.luckymarmot.com/)
+        
+        // Create manager
+        let manager = Manager.sharedInstance
+        
+        // Add Headers
+        manager.session.configuration.HTTPAdditionalHeaders = [
+            "aeufb":"oubeaf",
+            "Cookie":"sessionid=j9z27n2m0wptpuk6xcbjiov86f7pyrjm",
+            "Content-Type":"application/json",
+        ]
+        
+        // JSON Body
+        let bodyParameters = [
+            "alfekjn": "ljafel",
+            "ljaebf": "ljbaeflj",
+            "baef": "caboue"
+        ]
+        
+        let encoding = Alamofire.ParameterEncoding.JSON
+        
+        // Fetch Request
+        Alamofire.request(.POST, "http://echo.luckymarmot.com", parameters: bodyParameters, encoding: encoding)
+            .validate(statusCode: 200..<300)
+            .responseJSON{(response) in
+                if (response.result.error == nil)
+                {
+                    print("HTTP Response Body: \(response.data)")
+                }
+                else
+                {
+                    print("HTTP Request failed: \(response.result.error)")
+                }
+        }
 	}
 	
 	func testPOSTTextRequest()
 	{
-		let expectation = expectationWithDescription("request sent")
-
-		// POST Text Body (POST http://httpbin.org/post)
-		
-		Alamofire.request(urlRequestWithRawBody("http://httpbin.org/post?toto=toto", rawBody: "Some text body"))
-			.validate(statusCode: 200..<300)
-			.responseJSON{(request, response, JSON, error) in
-				if (error == nil)
-				{
-					println("HTTP Response Body: \(JSON)")
-				}
-				else
-				{
-					println("HTTP HTTP Request failed: \(error)")
-				}
-				expectation.fulfill()
-				XCTAssertNotNil(JSON, "data should not be nil")
-				XCTAssertNotNil(response, "response should not be nil")
-				XCTAssertNil(error, "error should be nil")
-		}
-		
-		waitForExpectationsWithTimeout(5, handler: nil)
+        // My API (POST http://echo.luckymarmot.com/)
+        
+        // Create manager
+        var manager = Manager.sharedInstance
+        
+        // Add Headers
+        manager.session.configuration.HTTPAdditionalHeaders = [
+            "aeufb":"oubeaf",
+            "Cookie":"sessionid=j9z27n2m0wptpuk6xcbjiov86f7pyrjm",
+            "Content-Type":"application/json",
+        ]
+        
+        // Add timeout
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        configuration.timeoutIntervalForRequest = 5
+        manager = Alamofire.Manager(configuration: configuration)
+        
+        // Add Headers
+        manager.session.configuration.HTTPAdditionalHeaders = [
+            "aefoib":"eiubef",
+            "Cookie":"sessionid=j9z27n2m0wptpuk6xcbjiov86f7pyrjm",
+        ]
+        Alamofire.request(urlRequestWithRawBody("http://echo.luckymarmot.com", rawBody: "azdouaeifub"))
+            .validate(statusCode: 200..<300)
+            .responseJSON{(response) in
+                if (response.result.error == nil)
+                {
+                    print("HTTP Response Body: \(response.data)")
+                }
+                else
+                {
+                    print("HTTP Request failed: \(response.result.error)")
+                }
+        }
 	}
 	
 	func testPOSTFormEncodedURLRequest()
 	{
-		let expectation = expectationWithDescription("request sent")
-		
 		// POST Form URL-Encoded (POST http://httpbin.org/post)
 		
 		// Create manager
-		var manager = Manager.sharedInstance
+		let manager = Manager.sharedInstance
 		
+        // Add Headers
+        manager.session.configuration.HTTPAdditionalHeaders = [
+            "aeufb":"oubeaf",
+            "Cookie":"sessionid=j9z27n2m0wptpuk6xcbjiov86f7pyrjm",
+            "Content-Type":"application/json",
+        ]
 		
 		// Form URL-Encoded Body
 		let bodyParameters = [
@@ -155,28 +155,28 @@ class SwiftAlamofireCodeGeneratorTests: XCTestCase
 		// Fetch Request
 		Alamofire.request(.POST, "http://httpbin.org/post", parameters: bodyParameters, encoding: encoding)
 			.validate(statusCode: 200..<300)
-			.responseJSON{(request, response, JSON, error) in
-				if (error == nil)
-				{
-					println("HTTP Response Body: \(JSON)")
-				}
-				else
-				{
-					println("HTTP HTTP Request failed: \(error)")
-				}
-				expectation.fulfill()
-				XCTAssertNotNil(JSON, "data should not be nil")
-				XCTAssertNotNil(response, "response should not be nil")
-				XCTAssertNil(error, "error should be nil")
-		}
-		
-		waitForExpectationsWithTimeout(5, handler: nil)
+            .responseJSON{(response) in
+                if (response.result.error == nil)
+                {
+                    print("HTTP Response Body: \(response.data)")
+                }
+                else
+                {
+                    print("HTTP Request failed: \(response.result.error)")
+                }
+        }
 	}
 
 	func testPOSTMultipartRequest()
 	{
-		let expectation = expectationWithDescription("request sent")
-		
+        // Create manager
+        let manager = Manager.sharedInstance
+        
+        // Add Headers
+        manager.session.configuration.HTTPAdditionalHeaders = [
+            "aieufb":"iubaef",
+        ]
+        
 		// POST Multipart (POST http://httpbin.org/post)
 		
 		// Form Multipart Body
@@ -189,28 +189,18 @@ class SwiftAlamofireCodeGeneratorTests: XCTestCase
 		
 		Alamofire.request(urlRequestWithMultipartBody("http://httpbin.org/post?toto=toto", parameters: bodyParameters))
 			.validate(statusCode: 200..<300)
-			.responseJSON{(request, response, JSON, error) in
-				if (error == nil)
-				{
-					println("HTTP Response Body: \(JSON)")
-				}
-				else
-				{
-					println("HTTP HTTP Request failed: \(error)")
-				}
-				expectation.fulfill()
-				XCTAssertNotNil(JSON, "data should not be nil")
-				XCTAssertNotNil(response, "response should not be nil")
-				XCTAssertNil(error, "error should be nil")
-		}
-		
-		waitForExpectationsWithTimeout(5, handler: nil)
+        // Add Headers
+        manager.session.configuration.HTTPAdditionalHeaders = [
+            "aeufb":"oubeaf",
+            "Cookie":"sessionid=j9z27n2m0wptpuk6xcbjiov86f7pyrjm",
+            "Content-Type":"application/json",
+        ]
 	}
 	
 	func urlRequestWithRawBody(urlString:String, rawBody:String) -> (URLRequestConvertible) {
 
 		// Create url request to send
-		var mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
+		let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
 		mutableURLRequest.HTTPMethod = Alamofire.Method.POST.rawValue
 		
 		// Set content-type
@@ -229,7 +219,7 @@ class SwiftAlamofireCodeGeneratorTests: XCTestCase
 	func urlRequestWithMultipartBody(urlString:String, parameters:NSDictionary) -> (URLRequestConvertible) {
 
 		// create url request to send
-		var mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
+		let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
 		mutableURLRequest.HTTPMethod = Alamofire.Method.POST.rawValue
 		// Set Content-Type in HTTP header.
 		let boundary = "PAW-boundary-\(arc4random())-\(arc4random())"

@@ -3,11 +3,18 @@ class MyRequestController {
 	func sendRequest() {
 		
 		// {{{request.name}}} ({{{request.method}}} {{{url.base}}})
-
+        
 		{{#headers.has_headers}}
 		// Create manager
-		var manager = Manager.sharedInstance
-
+		{{#timeout}}var{{/timeout}}{{^timeout}}let{{/timeout}} manager = Manager.sharedInstance
+        {{#timeout}}
+        
+        /// Add timeout
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        configuration.timeoutIntervalForRequest = {{{timeout}}}
+        manager = Alamofire.Manager(configuration: configuration)
+        {{/timeout}}
+        
 		// Add Headers
 		manager.session.configuration.HTTPAdditionalHeaders = [
 		{{#headers.header_list}}
@@ -18,7 +25,8 @@ class MyRequestController {
 		{{! ----- }}
 		{{^has_params_and_body}}
 		{{#url.has_params}}
-
+        
+        // Add parameters
 		let URLParameters = [
 		{{#url.params}}
 			"{{{name}}}":"{{{value}}}",
@@ -62,18 +70,18 @@ class MyRequestController {
 		Alamofire.request(.{{{request.method}}}, "{{{url.fullpath}}}", parameters: bodyParameters, encoding: encoding)
 		{{/body}}
 		{{^body}}
-		Alamofire.request(.{{{request.method}}}, "{{{url.base}}}", parameters: URLParameters)
+		Alamofire.request(.{{{request.method}}}, "{{{url.base}}}", parameters: {{#url.has_params}}URLParameters{{/url.has_params}}{{^url.has_params}}nil{{/url.has_params}})
 		{{/body}}
 		.validate(statusCode: 200..<300)
-		.responseJSON{(request, response, JSON, error) in
-			if (error == nil)
-			{
-				println("HTTP Response Body: \(JSON)")
-			}
-			else
-			{
-				println("HTTP HTTP Request failed: \(error)")
-			}
+		.responseJSON{(response) in
+            if (response.result.error == nil)
+            {
+                print("HTTP Response Body: \(response.data)")
+            }
+            else
+            {
+                print("HTTP Request failed: \(response.result.error)")
+            }
 		}
 		{{/has_raw_body_or_multipart_body}}
 		{{! ----- }}
@@ -87,14 +95,14 @@ class MyRequestController {
 		Alamofire.request(urlRequestWithRawBody("{{{url.fullpath}}}", rawBody: "Set your own body data"))
 		{{/body.has_long_body}}
 		.validate(statusCode: 200..<300)
-		.responseJSON{(request, response, JSON, error) in
-			if (error == nil)
+		.responseJSON{(response) in
+			if (response.result.error == nil)
 			{
-				println("HTTP Response Body: \(JSON)")
+				print("HTTP Response Body: \(response.data)")
 			}
 			else
 			{
-				println("HTTP HTTP Request failed: \(error)")
+				print("HTTP Request failed: \(response.result.error)")
 			}
 		}
 		{{/body.has_raw_body}}
@@ -103,14 +111,14 @@ class MyRequestController {
 
 		Alamofire.request(urlRequestWithMultipartBody("{{{url.fullpath}}}", parameters: bodyParameters))
 		.validate(statusCode: 200..<300)
-		.responseJSON{(request, response, JSON, error) in
-			if (error == nil)
+		.responseJSON{(response) in
+			if (response.result.error == nil)
 			{
-				println("HTTP Response Body: \(JSON)")
+				print("HTTP Response Body: \(response.data)")
 			}
 			else
 			{
-				println("HTTP HTTP Request failed: \(error)")
+				print("HTTP HTTP Request failed: \(response.result.error)")
 			}
 		}
 		{{/body.has_multipart_body}}
@@ -124,7 +132,7 @@ class MyRequestController {
 	func urlRequestWithRawBody(urlString:String, rawBody:String) -> (URLRequestConvertible) {
 
 		// Create url request to send
-		var mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
+		let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
 		mutableURLRequest.HTTPMethod = Alamofire.Method.POST.rawValue
 		
 		// Set content-type
@@ -145,7 +153,7 @@ class MyRequestController {
 	func urlRequestWithMultipartBody(urlString:String, parameters:NSDictionary) -> (URLRequestConvertible) {
 
 		// Create url request to send
-		var mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
+		let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
 		mutableURLRequest.HTTPMethod = Alamofire.Method.POST.rawValue
 		// Set Content-Type in HTTP header.
 		let boundary = "PAW-boundary-\(arc4random())-\(arc4random())"

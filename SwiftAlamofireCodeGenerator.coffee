@@ -11,6 +11,14 @@
 addslashes = (str) ->
     ("#{str}").replace(/[\\"]/g, '\\$&')
 
+slugify = (str) ->
+    re = /([a-zA-Z0-9])([a-zA-Z0-9]*)/g
+    l = []
+    while (m = re.exec(str))
+        if (m)
+            l.push(m[1].toUpperCase() + m[2].toLowerCase())
+    return l.join('')
+
 SwiftAlamofireCodeGenerator = ->
     
     @url = (request) ->
@@ -122,6 +130,7 @@ SwiftAlamofireCodeGenerator = ->
             "headers": @headers request
             "body": @body request
             "timeout": if request.timeout then request.timeout / 1000 else null
+            "codeSlug": slugify(request.name)
 
         view["has_params_and_body"] = true if view.url.has_params and view.body
         view["has_raw_body_or_multipart_body"] = true if view.body and (view.body.has_raw_body or view.body.has_multipart_body)

@@ -12,7 +12,7 @@ addslashes = (str) ->
     ("#{str}").replace(/[\\"]/g, '\\$&')
 
 SwiftAlamofireCodeGenerator = ->
-
+    
     @url = (request) ->
         url_params_object = (() ->
             _uri = URI request.url
@@ -116,11 +116,12 @@ SwiftAlamofireCodeGenerator = ->
         request = context.getCurrentRequest()
 
         view =
-            "request": context.getCurrentRequest()
+            "request": request
             "method": request.method.toUpperCase()
             "url": @url request
             "headers": @headers request
             "body": @body request
+            "timeout": if request.timeout then request.timeout / 1000 else null
 
         view["has_params_and_body"] = true if view.url.has_params and view.body
         view["has_raw_body_or_multipart_body"] = true if view.body and (view.body.has_raw_body or view.body.has_multipart_body)

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6F244C861A924A1C0042E389 /* SwiftAlamofireCodeGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F244C851A924A1C0042E389 /* SwiftAlamofireCodeGeneratorTests.swift */; };
-		E1BAFF38670F1859609C8885 /* Pods_SwiftAlamofireCodeGeneratorTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FC0B66B123CB21EC67BABF /* Pods_SwiftAlamofireCodeGeneratorTests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		E1BAFF38670F1859609C8885 /* Pods_SwiftAlamofireCodeGeneratorTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FC0B66B123CB21EC67BABF /* Pods_SwiftAlamofireCodeGeneratorTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,7 +105,8 @@
 		6F244C4E1A9245C30042E389 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastSwiftUpdateCheck = 0710;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Quentin Rousseau";
 				TargetAttributes = {
 					6F244C801A924A1C0042E389 = {
@@ -219,6 +220,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -290,6 +292,7 @@
 				);
 				INFOPLIST_FILE = SwiftAlamofireCodeGeneratorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.luckymarmot.PawExtensions.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -305,6 +308,7 @@
 				);
 				INFOPLIST_FILE = SwiftAlamofireCodeGeneratorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.luckymarmot.PawExtensions.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

@@ -1,18 +1,10 @@
-language: objective-c
-osx_image: xcode7.2
+language: node_js
 node_js:
 - '0.10'
 before_install:
-- gem install cocoapods
-- pod --version
 - npm install coffee-script
-install:
-- pod install --project-directory=./test/
-- npm install
 before_script:
 - ./node_modules/.bin/cake archive
-script:
-- ./node_modules/.bin/cake test
 deploy:
   provider: releases
   api_key:
@@ -23,5 +15,3 @@ deploy:
     tags: true
     all_branches: true
     repo: luckymarmot/Paw-SwiftAlamofireCodeGenerator
-os:
-  - osx

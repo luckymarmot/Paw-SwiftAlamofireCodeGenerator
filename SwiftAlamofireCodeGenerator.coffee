@@ -9,7 +9,7 @@
 )(this)
 
 addslashes = (str) ->
-    ("#{str}").replace(/[\\"]/g, '\\$&')
+    ("#{str}").replace(/[\\"]/g, '\\$&').replace(/[\n\r\f]/gm, '\\n')
 
 slugify = (str) ->
     re = /([a-zA-Z0-9])([a-zA-Z0-9]*)/g
@@ -44,12 +44,13 @@ SwiftAlamofireCodeGenerator = ->
 
     @headers = (request) ->
         headers = request.headers
+        hasBasicAuth = true if request.httpBasicAuth
         return {
             "has_headers": Object.keys(headers).length > 0
             "header_list": ({
                 "header_name": addslashes header_name
                 "header_value": addslashes header_value
-            } for header_name, header_value of headers)
+            } for header_name, header_value of headers when (header_name.toLowerCase() != 'authorization' or not hasBasicAuth))
         }
 
     @body = (request) ->
@@ -104,8 +105,8 @@ SwiftAlamofireCodeGenerator = ->
         else if typeof(object) == 'boolean'
             s = "#{if object then "true" else "false"}"
         else if typeof(object) == 'object'
-            indent_str = Array(indent + 2).join('    ')
-            indent_str_children = Array(indent + 3).join('    ')
+            indent_str = Array(indent + 1).join('    ')
+            indent_str_children = Array(indent + 2).join('    ')
             if object.length?
                 s = "[\n" +
                     ("#{indent_str_children}#{@json_body_object(value, indent+1)}" for value in object).join(',\n') +
@@ -116,25 +117,26 @@ SwiftAlamofireCodeGenerator = ->
                     "\n#{indent_str}]"
 
         if indent <= 1
-            s = "let bodyParameters = #{s}"
+            s = "let body = #{s}"
 
         return s
 
     @generate = (context) ->
         request = context.getCurrentRequest()
+        method = request.method.toUpperCase()
 
         view =
             "request": request
-            "method": request.method.toUpperCase()
+            "method": method
             "url": @url request
             "headers": @headers request
             "body": @body request
             "timeout": if request.timeout then request.timeout / 1000 else null
             "codeSlug": slugify(request.name)
+            "httpBasicAuth": request.httpBasicAuth
 
-        view["has_params_and_body"] = true if view.url.has_params and view.body
-        view["has_raw_body_or_multipart_body"] = true if view.body and (view.body.has_raw_body or view.body.has_multipart_body)
-        
+        view["has_params_to_encode"] = true if view.url.has_params and (method == 'GET' or method == 'HEAD' or method == 'DELETE')
+
         template = readFile "swift.mustache"
         Mustache.render template, view
 

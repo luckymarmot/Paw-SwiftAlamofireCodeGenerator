@@ -9,7 +9,7 @@
 )(this)
 
 addslashes = (str) ->
-    ("#{str}").replace(/[\\"]/g, '\\$&')
+    ("#{str}").replace(/[\\"]/g, '\\$&').replace(/[\n\r\f]/gm, '\\n')
 
 slugify = (str) ->
     re = /([a-zA-Z0-9])([a-zA-Z0-9]*)/g

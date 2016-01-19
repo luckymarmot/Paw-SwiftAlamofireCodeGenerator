@@ -54,7 +54,7 @@ func send{{{codeSlug}}}Request() {
     {{#timeout}}manager{{/timeout}}{{^timeout}}Alamofire{{/timeout}}.request(.{{{method}}}{{#has_params_to_encode}}, "{{{url.base}}}"{{/has_params_to_encode}}{{^has_params_to_encode}}, "{{{url.fullpath}}}"{{/has_params_to_encode}}{{#headers.has_headers}}, headers: headers{{/headers.has_headers}}{{#body}}{{^body.has_raw_body}}, parameters: body{{/body.has_raw_body}}{{/body}}{{#body.has_raw_body}}, encoding: .Custom({ (convertible, params) in
         let mutableRequest = convertible.URLRequest.copy() as! NSMutableURLRequest
         {{#body.has_short_body}}
-        mutableRequest.HTTPBody = "{{body.short_body}}".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+        mutableRequest.HTTPBody = "{{{body.short_body}}}".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
         {{/body.has_short_body}}
         {{^body.has_short_body}}
         mutableRequest.HTTPBody = nil; // set your body data here

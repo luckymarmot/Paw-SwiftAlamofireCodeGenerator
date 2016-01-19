@@ -44,12 +44,13 @@ SwiftAlamofireCodeGenerator = ->
 
     @headers = (request) ->
         headers = request.headers
+        hasBasicAuth = true if request.httpBasicAuth
         return {
             "has_headers": Object.keys(headers).length > 0
             "header_list": ({
                 "header_name": addslashes header_name
                 "header_value": addslashes header_value
-            } for header_name, header_value of headers)
+            } for header_name, header_value of headers when (header_name.toLowerCase() != 'authorization' or not hasBasicAuth))
         }
 
     @body = (request) ->
@@ -132,6 +133,7 @@ SwiftAlamofireCodeGenerator = ->
             "body": @body request
             "timeout": if request.timeout then request.timeout / 1000 else null
             "codeSlug": slugify(request.name)
+            "httpBasicAuth": request.httpBasicAuth
 
         view["has_params_to_encode"] = true if view.url.has_params and (method == 'GET' or method == 'HEAD' or method == 'DELETE')
 

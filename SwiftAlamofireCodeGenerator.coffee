@@ -117,7 +117,7 @@ SwiftAlamofireCodeGenerator = ->
                     "\n#{indent_str}]"
 
         if indent <= 1
-            s = "let body = #{s}"
+            s = "let body: [String : Any] = #{s}"
 
         return s
 
@@ -127,7 +127,7 @@ SwiftAlamofireCodeGenerator = ->
 
         view =
             "request": request
-            "method": method
+            "method": method.toLowerCase()
             "url": @url request
             "headers": @headers request
             "body": @body request

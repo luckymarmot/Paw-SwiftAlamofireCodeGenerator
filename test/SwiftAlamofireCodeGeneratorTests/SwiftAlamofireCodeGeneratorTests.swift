@@ -16,16 +16,13 @@ class SwiftAlamofireCodeGeneratorTests: XCTestCase
 	{
         // My API (GET http://echo.luckymarmot.com/)
         
-        // Create manager
-        var manager = Manager.sharedInstance
-        
         // Add timeout
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 2
-        manager = Alamofire.Manager(configuration: configuration)
+        let manager = Alamofire.SessionManager(configuration: configuration)
         
         // Add Headers
-        manager.session.configuration.HTTPAdditionalHeaders = [
+        manager.session.configuration.httpAdditionalHeaders = [
             "oaief":"oinef",
             "Cookie":"sessionid=j9z27n2m0wptpuk6xcbjiov86f7pyrjm",
         ]
@@ -36,7 +33,7 @@ class SwiftAlamofireCodeGeneratorTests: XCTestCase
         ]
         
         // Fetch Request
-        Alamofire.request(.GET, "http://echo.luckymarmot.com/", parameters: URLParameters)
+        Alamofire.request("http://echo.luckymarmot.com/", method: .get, parameters: URLParameters)
             .validate(statusCode: 200..<300)
             .responseJSON{(response) in
                 if (response.result.error == nil)
@@ -57,10 +54,10 @@ class SwiftAlamofireCodeGeneratorTests: XCTestCase
         // My API (POST http://echo.luckymarmot.com/)
         
         // Create manager
-        let manager = Manager.sharedInstance
+        let manager = Alamofire.SessionManager.default
         
         // Add Headers
-        manager.session.configuration.HTTPAdditionalHeaders = [
+        manager.session.configuration.httpAdditionalHeaders = [
             "aeufb":"oubeaf",
             "Cookie":"sessionid=j9z27n2m0wptpuk6xcbjiov86f7pyrjm",
             "Content-Type":"application/json",
@@ -73,10 +70,11 @@ class SwiftAlamofireCodeGeneratorTests: XCTestCase
             "baef": "caboue"
         ]
         
-        let encoding = Alamofire.ParameterEncoding.JSON
+        
+        let encoding = JSONEncoding.default
         
         // Fetch Request
-        Alamofire.request(.POST, "http://echo.luckymarmot.com", parameters: bodyParameters, encoding: encoding)
+        Alamofire.request("http://echo.luckymarmot.com", method: .post, parameters: bodyParameters, encoding: encoding)
             .validate(statusCode: 200..<300)
             .responseJSON{(response) in
                 if (response.result.error == nil)
@@ -95,22 +93,22 @@ class SwiftAlamofireCodeGeneratorTests: XCTestCase
         // My API (POST http://echo.luckymarmot.com/)
         
         // Create manager
-        var manager = Manager.sharedInstance
+        var manager = Alamofire.SessionManager.default
         
         // Add Headers
-        manager.session.configuration.HTTPAdditionalHeaders = [
+        manager.session.configuration.httpAdditionalHeaders = [
             "aeufb":"oubeaf",
             "Cookie":"sessionid=j9z27n2m0wptpuk6xcbjiov86f7pyrjm",
             "Content-Type":"application/json",
         ]
         
         // Add timeout
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 5
-        manager = Alamofire.Manager(configuration: configuration)
+        manager = Alamofire.SessionManager(configuration: configuration)
         
         // Add Headers
-        manager.session.configuration.HTTPAdditionalHeaders = [
+        manager.session.configuration.httpAdditionalHeaders = [
             "aefoib":"eiubef",
             "Cookie":"sessionid=j9z27n2m0wptpuk6xcbjiov86f7pyrjm",
         ]
@@ -133,10 +131,10 @@ class SwiftAlamofireCodeGeneratorTests: XCTestCase
 		// POST Form URL-Encoded (POST http://httpbin.org/post)
 		
 		// Create manager
-		let manager = Manager.sharedInstance
-		
+        let manager = Alamofire.SessionManager.default
+        
         // Add Headers
-        manager.session.configuration.HTTPAdditionalHeaders = [
+        manager.session.configuration.httpAdditionalHeaders = [
             "aeufb":"oubeaf",
             "Cookie":"sessionid=j9z27n2m0wptpuk6xcbjiov86f7pyrjm",
             "Content-Type":"application/json",
@@ -149,11 +147,11 @@ class SwiftAlamofireCodeGeneratorTests: XCTestCase
 			"form-key1":"form-value1",
 			"form-key2":"form-value2",
 		]
-		let encoding = Alamofire.ParameterEncoding.URL
+		let encoding = URLEncoding.default
 		//NSMutableURLRequest* request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:@"http://httpbin.org/post" parameters:bodyParameters error:nil];
 		
 		// Fetch Request
-		Alamofire.request(.POST, "http://httpbin.org/post", parameters: bodyParameters, encoding: encoding)
+        Alamofire.request("http://httpbin.org/post", method: .post, parameters: bodyParameters, encoding: encoding)
 			.validate(statusCode: 200..<300)
             .responseJSON{(response) in
                 if (response.result.error == nil)
@@ -170,17 +168,17 @@ class SwiftAlamofireCodeGeneratorTests: XCTestCase
 	func testPOSTMultipartRequest()
 	{
         // Create manager
-        let manager = Manager.sharedInstance
+        let manager = Alamofire.SessionManager.default
         
         // Add Headers
-        manager.session.configuration.HTTPAdditionalHeaders = [
+        manager.session.configuration.httpAdditionalHeaders = [
             "aieufb":"iubaef",
         ]
         
 		// POST Multipart (POST http://httpbin.org/post)
 		
 		// Form Multipart Body
-		let bodyParameters = [
+        let bodyParameters: NSDictionary = [
 			"multipart-key2":"multipart-value2",
 			"multipart-key1":"multipart-value1",
 			"multipart-date-key":"Tue, 17 Feb 2015 21:45:59 GMT",
@@ -190,37 +188,37 @@ class SwiftAlamofireCodeGeneratorTests: XCTestCase
 		Alamofire.request(urlRequestWithMultipartBody("http://httpbin.org/post?toto=toto", parameters: bodyParameters))
 			.validate(statusCode: 200..<300)
         // Add Headers
-        manager.session.configuration.HTTPAdditionalHeaders = [
+        manager.session.configuration.httpAdditionalHeaders = [
             "aeufb":"oubeaf",
             "Cookie":"sessionid=j9z27n2m0wptpuk6xcbjiov86f7pyrjm",
             "Content-Type":"application/json",
         ]
 	}
 	
-	func urlRequestWithRawBody(urlString:String, rawBody:String) -> (URLRequestConvertible) {
+	func urlRequestWithRawBody(_ urlString:String, rawBody:String) -> (URLRequestConvertible) {
 
 		// Create url request to send
-		let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
-		mutableURLRequest.HTTPMethod = Alamofire.Method.POST.rawValue
+		var mutableURLRequest = URLRequest(url: URL(string: urlString)!)
+		mutableURLRequest.httpMethod = HTTPMethod.post.rawValue
 		
 		// Set content-type
 		mutableURLRequest.setValue("", forHTTPHeaderField: "Content-Type")
 		
 		// Set the HTTPBody we'd like to submit
 		let requestBodyData = NSMutableData()
-		requestBodyData.appendData(rawBody.dataUsingEncoding(NSUTF8StringEncoding)!)
+		requestBodyData.append(rawBody.data(using: String.Encoding.utf8)!)
 		
-		mutableURLRequest.HTTPBody = requestBodyData
+		mutableURLRequest.httpBody = requestBodyData as Data
 
 		// return URLRequestConvertible
-		return (Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: nil).0)
+		return try! (URLEncoding.default.encode(mutableURLRequest, with: nil))
 	}
 	
-	func urlRequestWithMultipartBody(urlString:String, parameters:NSDictionary) -> (URLRequestConvertible) {
+	func urlRequestWithMultipartBody(_ urlString:String, parameters:NSDictionary) -> (URLRequestConvertible) {
 
 		// create url request to send
-		let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
-		mutableURLRequest.HTTPMethod = Alamofire.Method.POST.rawValue
+		var mutableURLRequest = URLRequest(url: URL(string: urlString)!)
+		mutableURLRequest.httpMethod = HTTPMethod.post.rawValue
 		// Set Content-Type in HTTP header.
 		let boundary = "PAW-boundary-\(arc4random())-\(arc4random())"
 		let contentType = "multipart/form-data; boundary=" + boundary
@@ -235,11 +233,195 @@ class SwiftAlamofireCodeGeneratorTests: XCTestCase
 		mutableURLRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
 		
 		// Set the HTTPBody we'd like to submit
-		let requestBodyData = (dataString as NSString).dataUsingEncoding(NSUTF8StringEncoding)
-		mutableURLRequest.HTTPBody = requestBodyData
+		let requestBodyData = (dataString as NSString).data(using: String.Encoding.utf8.rawValue)
+		mutableURLRequest.httpBody = requestBodyData
 
 		// return URLRequestConvertible
-		return (Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: nil).0)
+		return try! (URLEncoding.default.encode(mutableURLRequest, with: nil))
 	}
+    
+    
+    // MARK:- Alamofire 4 + Swift 3 Tests
+    
+    func testTextGeneratedRequest() {
+        /**
+         Documentation
+         post https://echo.paw.cloud/
+         */
+        
+        // Add Headers
+        let headers = [
+            "Some-Header-X":"X-Value",
+            "Cookie":"sessionid=dn8ik4sd2sw0k9ayoi11irj6x2ibbkfl",
+            "Content-Type":"text/plain; charset=utf-8",
+            ]
+        
+        // Custom Body Encoding
+        struct RawDataEncoding: ParameterEncoding {
+            public static var `default`: RawDataEncoding { return RawDataEncoding() }
+            public func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
+                var request = try urlRequest.asURLRequest()
+                request.httpBody = "{\n  \"id\": \"12\",\n  \"list\": [\n    \"123\",\n    \"456\"\n  ]\n}".data(using: String.Encoding.utf8, allowLossyConversion: false)
+                return request
+            }
+        }
+        
+        // Fetch Request
+        Alamofire.request("https://echo.paw.cloud/?Some-Param=yeah&Other-Param=", method: .post, encoding: RawDataEncoding.default, headers: headers)
+            .authenticate(user: "user", password: "***** Hidden credentials *****")
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                if (response.result.error == nil) {
+                    debugPrint("HTTP Response Body: \(response.data)")
+                }
+                else {
+                    debugPrint("HTTP Request failed: \(response.result.error)")
+                }
+        }
+    }
+    
+    func testJSONGeneratedRequest() {
+        /**
+         Documentation
+         post https://echo.paw.cloud/
+         */
+        
+        // Add Headers
+        let headers = [
+            "Some-Header-X":"X-Value",
+            "Cookie":"sessionid=dn8ik4sd2sw0k9ayoi11irj6x2ibbkfl",
+            "Content-Type":"application/json; charset=utf-8",
+            ]
+        
+        // JSON Body
+        let body: [String : Any] = [
+            "id": "12",
+            "list": [
+                "123",
+                "456"
+            ]
+        ]
+        
+        struct RawDataEncoding: ParameterEncoding {
+            public static var `default`: RawDataEncoding { return RawDataEncoding() }
+            public func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
+                var request = try urlRequest.asURLRequest()
+                request.httpBody = "{\n  \"id\": \"12\",\n  \"list\": [\n    \"123\",\n    \"456\"\n  ]\n}".data(using: String.Encoding.utf8, allowLossyConversion: false)
+                return request
+            }
+        }
+        
+        // Fetch Request
+        Alamofire.request("https://echo.paw.cloud/?Some-Param=yeah&Other-Param=", method: .post, parameters: body, encoding: JSONEncoding.default, headers: headers)
+            .authenticate(user: "user", password: "***** Hidden credentials *****")
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                if (response.result.error == nil) {
+                    debugPrint("HTTP Response Body: \(response.data)")
+                }
+                else {
+                    debugPrint("HTTP Request failed: \(response.result.error)")
+                }
+        }
+    }
+    
+    func testFormURLEncodedGeneratedRequest() {
+        /**
+         Documentation
+         post https://echo.paw.cloud/
+         */
+        
+        // Add Headers
+        let headers = [
+            "Some-Header-X":"X-Value",
+            "Cookie":"sessionid=dn8ik4sd2sw0k9ayoi11irj6x2ibbkfl",
+            "Content-Type":"application/x-www-form-urlencoded; charset=utf-8",
+            ]
+        
+        // Form URL-Encoded Body
+        let body = [
+            "d":"a",
+            ]
+        
+        // Fetch Request
+        Alamofire.request("https://echo.paw.cloud/?Some-Param=yeah&Other-Param=", method: .post, parameters: body, encoding: URLEncoding.default, headers: headers)
+            .authenticate(user: "user", password: "***** Hidden credentials *****")
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                if (response.result.error == nil) {
+                    debugPrint("HTTP Response Body: \(response.data)")
+                }
+                else {
+                    debugPrint("HTTP Request failed: \(response.result.error)")
+                }
+        }
+    }
+    
+    func testMultipartGeneratedRequest() {
+        /**
+         Documentation
+         post https://echo.paw.cloud/
+         */
+        
+        // Add Headers
+        let headers = [
+            "Some-Header-X":"X-Value",
+            "Cookie":"sessionid=dn8ik4sd2sw0k9ayoi11irj6x2ibbkfl",
+            "Content-Type":"multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__",
+            ]
+        
+        // Fetch Request
+        Alamofire.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append("a".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName :"d")
+        }, usingThreshold: UInt64.init(), to: "https://echo.paw.cloud/?Some-Param=yeah&Other-Param=", method: .post, headers: headers, encodingCompletion: { encodingResult in
+            switch encodingResult {
+            case .success(let upload, _, _):
+                upload.responseJSON { response in
+                    debugPrint(response)
+                }
+            case .failure(let encodingError):
+                print(encodingError)
+            }
+        })
+    }
+    
+    // FIXME: custom encoding
+    
+    func testFileGeneratedRequest() {
+        /**
+         Documentation
+         post https://echo.paw.cloud/
+         */
+        
+        // Add Headers
+        let headers = [
+            "Some-Header-X":"X-Value",
+            "Cookie":"sessionid=dn8ik4sd2sw0k9ayoi11irj6x2ibbkfl",
+            "Content-Type":"text/plain",
+            ]
+        
+        // Custom Body Encoding
+        struct RawDataEncoding: ParameterEncoding {
+            public static var `default`: RawDataEncoding { return RawDataEncoding() }
+            public func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
+                var request = try urlRequest.asURLRequest()
+                request.httpBody = nil // set your body data here
+                return request
+            }
+        }
+        
+        // Fetch Request
+        Alamofire.request("https://echo.paw.cloud/?Some-Param=yeah&Other-Param=", method: .post, encoding: RawDataEncoding.default, headers: headers)
+            .authenticate(user: "user", password: "***** Hidden credentials *****")
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                if (response.result.error == nil) {
+                    debugPrint("HTTP Response Body: \(response.data)")
+                }
+                else {
+                    debugPrint("HTTP Request failed: \(response.result.error)")
+                }
+        }
+    }
 	
 }

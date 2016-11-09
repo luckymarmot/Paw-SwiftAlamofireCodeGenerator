@@ -9,7 +9,7 @@ func send{{{codeSlug}}}Request() {
     // Add timeout
     let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
     configuration.timeoutIntervalForRequest = {{{timeout}}}
-    let manager = Alamofire.Manager(configuration: configuration)
+    let manager = Alamofire.SessionManager(configuration: configuration)
 
     {{/timeout}}
     {{! ----- Headers ----- }}
@@ -50,17 +50,25 @@ func send{{{codeSlug}}}Request() {
     {{/body.has_json_body}}
     {{! ----- Request ----- }}
     {{^body.has_multipart_body}}
+    {{#body.has_raw_body}}
+    // Custom Body Encoding
+    struct RawDataEncoding: ParameterEncoding {
+        public static var `default`: RawDataEncoding { return RawDataEncoding() }
+        public func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
+            var request = try urlRequest.asURLRequest()
+            {{#body.has_short_body}}
+            request.httpBody = "{{{body.short_body}}}".data(using: String.Encoding.utf8, allowLossyConversion: false)
+            {{/body.has_short_body}}
+            {{^body.has_short_body}}
+            request.httpBody = nil // set your body data here
+            {{/body.has_short_body}}
+            return request
+        }
+    }
+    
+    {{/body.has_raw_body}}
     // Fetch Request
-    {{#timeout}}manager{{/timeout}}{{^timeout}}Alamofire{{/timeout}}.request(.{{{method}}}{{#has_params_to_encode}}, "{{{url.base}}}"{{/has_params_to_encode}}{{^has_params_to_encode}}, "{{{url.fullpath}}}"{{/has_params_to_encode}}{{#headers.has_headers}}, headers: headers{{/headers.has_headers}}{{#body}}{{^body.has_raw_body}}, parameters: body{{/body.has_raw_body}}{{/body}}{{#body.has_raw_body}}, encoding: .Custom({ (convertible, params) in
-        let mutableRequest = convertible.URLRequest.copy() as! NSMutableURLRequest
-        {{#body.has_short_body}}
-        mutableRequest.HTTPBody = "{{{body.short_body}}}".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
-        {{/body.has_short_body}}
-        {{^body.has_short_body}}
-        mutableRequest.HTTPBody = nil; // set your body data here
-        {{/body.has_short_body}}
-        return (mutableRequest, nil)
-    }){{/body.has_raw_body}}{{^body}}{{#has_params_to_encode}}, parameters: urlParams{{/has_params_to_encode}}{{/body}}{{#body.has_json_body}}, encoding: .JSON{{/body.has_json_body}}{{#body.has_url_encoded_body}}, encoding: .URL{{/body.has_url_encoded_body}})
+    {{#timeout}}manager{{/timeout}}{{^timeout}}Alamofire{{/timeout}}.request({{#has_params_to_encode}}"{{{url.base}}}"{{/has_params_to_encode}}{{^has_params_to_encode}}"{{{url.fullpath}}}"{{/has_params_to_encode}}, method: .{{{method}}}{{#body}}{{^body.has_raw_body}}, parameters: body{{/body.has_raw_body}}{{/body}}{{#body.has_raw_body}}, encoding: RawDataEncoding.default{{/body.has_raw_body}}{{^body}}{{#has_params_to_encode}}, parameters: urlParams{{/has_params_to_encode}}{{/body}}{{#body.has_json_body}}, encoding: JSONEncoding.default{{/body.has_json_body}}{{#body.has_url_encoded_body}}, encoding: URLEncoding.default{{/body.has_url_encoded_body}}{{#headers.has_headers}}, headers: headers{{/headers.has_headers}})
     {{#httpBasicAuth}}
         .authenticate(user: "{{httpBasicAuth.username}}", password: "{{httpBasicAuth.password}}")
     {{/httpBasicAuth}}
@@ -77,20 +85,18 @@ func send{{{codeSlug}}}Request() {
     {{! ----- Upload (Multipart) ----- }}
     {{#body.has_multipart_body}}
     // Fetch Request
-    {{#timeout}}manager{{/timeout}}{{^timeout}}Alamofire{{/timeout}}.upload(.{{{method}}}, "{{{url.fullpath}}}"{{#headers.has_headers}}, headers: headers{{/headers.has_headers}},
-        multipartFormData: { multipartFormData in
+    {{#timeout}}manager{{/timeout}}{{^timeout}}Alamofire{{/timeout}}.upload(multipartFormData: { multipartFormData in
         {{#body.multipart_body}}
-            multipartFormData.appendBodyPart(data: "{{{value}}}".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!, name :"{{{name}}}")
+            multipartFormData.append("{{{value}}}".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName :"{{{name}}}")
         {{/body.multipart_body}}
-        },
-        encodingCompletion: { encodingResult in
+        }, usingThreshold: UInt64.init(), to: "{{{url.fullpath}}}", method: .{{{method}}}{{#headers.has_headers}}, headers: headers{{/headers.has_headers}}, encodingCompletion: { encodingResult in
             switch encodingResult {
-            case .Success(let upload, _, _):
+            case .success(let upload, _, _):
                 upload.responseJSON { response in
                     debugPrint(response)
                 }
-            case .Failure(let encodingError):
-                debugPrint(encodingError)
+            case .failure(let encodingError):
+                print(encodingError)
             }
         })
     {{/body.has_multipart_body}}

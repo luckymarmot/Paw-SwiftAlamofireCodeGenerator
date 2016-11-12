@@ -2,11 +2,11 @@
 
 # Swift + Alamofire Code Generator (Paw Extension)
 
-A [Paw Extension](http://luckymarmot.com/paw/extensions/) that generates Swift code for the [Alamofire 1.0](https://github.com/Alamofire/Alamofire) library.
+A [Paw Extension](https://paw.cloud/extensions/) that generates Swift 3 code for the [Alamofire 4.0](https://github.com/Alamofire/Alamofire) library.
 
 ## Installation
 
-Easily install this Paw Extension: [Install Swift + Alamofire Code Generator](http://luckymarmot.com/paw/extensions/SwiftAlamofireCodeGenerator)
+Easily install this Paw Extension: [Install Swift + Alamofire Code Generator](https://paw.cloud/extensions/SwiftAlamofireCodeGenerator)
 
 ## Development
 
@@ -60,7 +60,7 @@ set -o pipefail && xcodebuild -workspace 'SwiftAlamofireCodeGeneratorTest/SwiftA
 
 This Paw Extension is released under the [MIT License](LICENSE). Feel free to fork, and modify!
 
-Copyright © 2014 Paw Inc.
+Copyright © 2014-2016 Paw Inc.
 
 ## Contributors
 

@@ -2,7 +2,7 @@
 
 # Swift + Alamofire Code Generator (Paw Extension)
 
-A [Paw Extension](https://paw.cloud/extensions/) that generates Swift 3 code for the [Alamofire 4.0](https://github.com/Alamofire/Alamofire) library.
+A [Paw Extension](https://paw.cloud/extensions/) that generates Swift 5 code for the [Alamofire 5](https://github.com/Alamofire/Alamofire) library.
 
 ## Installation
 

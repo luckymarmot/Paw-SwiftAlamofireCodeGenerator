@@ -87,17 +87,16 @@ func send{{{codeSlug}}}Request() {
     // Fetch Request
     {{#timeout}}session{{/timeout}}{{^timeout}}AF{{/timeout}}.upload(multipartFormData: { multipartFormData in
         {{#body.multipart_body}}
-            multipartFormData.append("{{{value}}}".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName :"{{{name}}}")
+            multipartFormData.append(Data("{{{value}}}".utf8), withName :"{{{name}}}")
         {{/body.multipart_body}}
-        }, usingThreshold: UInt64.init(), to: "{{{url.fullpath}}}", method: .{{{method}}}{{#headers.has_headers}}, headers: headers{{/headers.has_headers}}, encodingCompletion: { encodingResult in
-            switch encodingResult {
-            case .success(let upload, _, _):
-                upload.responseJSON { response in
-                    debugPrint(response)
-                }
-            case .failure(let encodingError):
-                print(encodingError)
+        }, to: "{{{url.fullpath}}}", method: .{{{method}}}{{#headers.has_headers}}, headers: headers{{/headers.has_headers}})
+        .response { response in
+            switch response.result {
+            case .success(let result):
+                debugPrint("HTTP Response Body: \(String(data: result!, encoding: .utf8)!)")
+            case .failure(let error):
+                print("HTTP Request failed: \(error.localizedDescription)")
             }
-        })
+        }
     {{/body.has_multipart_body}}
 }

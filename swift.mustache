@@ -68,7 +68,7 @@ func send{{{codeSlug}}}Request() {
     
     {{/body.has_raw_body}}
     // Fetch Request
-    {{#timeout}}session{{/timeout}}{{^timeout}}AF{{/timeout}}.request({{#has_params_to_encode}}"{{{url.base}}}"{{/has_params_to_encode}}{{^has_params_to_encode}}"{{{url.fullpath}}}"{{/has_params_to_encode}}, method: .{{{method}}}{{#body}}{{^body.has_raw_body}}, parameters: body{{/body.has_raw_body}}{{/body}}{{#body.has_raw_body}}, encoding: RawDataEncoding.default{{/body.has_raw_body}}{{^body}}{{#has_params_to_encode}}, parameters: urlParams{{/has_params_to_encode}}{{/body}}{{#body.has_json_body}}, encoding: JSONParameterEncoder.default{{/body.has_json_body}}{{#body.has_url_encoded_body}}, encoding: URLEncodedFormParameterEncoder.default{{/body.has_url_encoded_body}}{{#headers.has_headers}}, headers: headers{{/headers.has_headers}})
+    {{#timeout}}session{{/timeout}}{{^timeout}}AF{{/timeout}}.request({{#has_params_to_encode}}"{{{url.base}}}"{{/has_params_to_encode}}{{^has_params_to_encode}}"{{{url.fullpath}}}"{{/has_params_to_encode}}, method: .{{{method}}}{{#body}}{{^body.has_raw_body}}, parameters: body{{/body.has_raw_body}}{{/body}}{{#body.has_raw_body}}, encoder: RawDataEncoding.default{{/body.has_raw_body}}{{^body}}{{#has_params_to_encode}}, parameters: urlParams{{/has_params_to_encode}}{{/body}}{{#body.has_json_body}}, encoder: JSONParameterEncoder.default{{/body.has_json_body}}{{#body.has_url_encoded_body}}, encoder: URLEncodedFormParameterEncoder(destination: .httpBody){{/body.has_url_encoded_body}}{{#headers.has_headers}}, headers: headers{{/headers.has_headers}})
     {{#httpBasicAuth}}
         .authenticate(user: "{{httpBasicAuth.username}}", password: "{{httpBasicAuth.password}}")
     {{/httpBasicAuth}}

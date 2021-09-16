@@ -51,13 +51,17 @@ func send{{{codeSlug}}}Request() {
     {{! ----- Request ----- }}
     {{^body.has_multipart_body}}
     {{#body.has_raw_body}}
+    // Raw Body
+    let body = "{{{body.short_body}}}"
+
     // Custom Body Encoding
     struct RawDataEncoding: ParameterEncoding {
-        public static var `default`: RawDataEncoding { return RawDataEncoding() }
-        public func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
-            var request = try urlRequest.asURLRequest()
+        static var `default`: RawDataEncoding { return RawDataEncoding() }
+        func encode<Parameters>(_ parameters: Parameters?, into request: URLRequest) throws -> URLRequest where Parameters : Encodable {
+            var request = request
             {{#body.has_short_body}}
-            request.httpBody = "{{{body.short_body}}}".data(using: String.Encoding.utf8, allowLossyConversion: false)
+            let parameters = parameters as? String
+            request.httpBody = parameters?.data(using: .utf8)
             {{/body.has_short_body}}
             {{^body.has_short_body}}
             request.httpBody = nil // set your body data here
@@ -68,7 +72,7 @@ func send{{{codeSlug}}}Request() {
     
     {{/body.has_raw_body}}
     // Fetch Request
-    {{#timeout}}session{{/timeout}}{{^timeout}}AF{{/timeout}}.request({{#has_params_to_encode}}"{{{url.base}}}"{{/has_params_to_encode}}{{^has_params_to_encode}}"{{{url.fullpath}}}"{{/has_params_to_encode}}, method: .{{{method}}}{{#body}}{{^body.has_raw_body}}, parameters: body{{/body.has_raw_body}}{{/body}}{{#body.has_raw_body}}, encoder: RawDataEncoding.default{{/body.has_raw_body}}{{^body}}{{#has_params_to_encode}}, parameters: urlParams{{/has_params_to_encode}}{{/body}}{{#body.has_json_body}}, encoder: JSONParameterEncoder.default{{/body.has_json_body}}{{#body.has_url_encoded_body}}, encoder: URLEncodedFormParameterEncoder(destination: .httpBody){{/body.has_url_encoded_body}}{{#headers.has_headers}}, headers: headers{{/headers.has_headers}})
+    {{#timeout}}session{{/timeout}}{{^timeout}}AF{{/timeout}}.request({{#has_params_to_encode}}"{{{url.base}}}"{{/has_params_to_encode}}{{^has_params_to_encode}}"{{{url.fullpath}}}"{{/has_params_to_encode}}, method: .{{{method}}}{{#body}}, parameters: body{{/body}}{{#body.has_raw_body}}, encoder: RawDataEncoding.default{{/body.has_raw_body}}{{^body}}{{#has_params_to_encode}}, parameters: urlParams{{/has_params_to_encode}}{{/body}}{{#body.has_json_body}}, encoder: JSONParameterEncoder.default{{/body.has_json_body}}{{#body.has_url_encoded_body}}, encoder: URLEncodedFormParameterEncoder(destination: .httpBody){{/body.has_url_encoded_body}}{{#headers.has_headers}}, headers: headers{{/headers.has_headers}})
     {{#httpBasicAuth}}
         .authenticate(user: "{{httpBasicAuth.username}}", password: "{{httpBasicAuth.password}}")
     {{/httpBasicAuth}}
